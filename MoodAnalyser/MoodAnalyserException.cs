@@ -6,6 +6,6 @@ namespace MoodAnalyser
 {
     public class MoodAnalyserException:Exception
     {
-
+        
     }
 }
