@@ -3,43 +3,84 @@ using MoodAnalyser;
 
 namespace MoodAnalyserTest
 {
+    /// <summary>
+    /// MS Testing class
+    /// </summary>
     [TestClass]
     public class UnitTest1
     {
         /// <summary>
-        /// Givens the sad message should return sad.
+        /// Given the happy mood message as parameter should return HAPPY.
         /// </summary>
         [TestMethod]
-        public void GivenSadMessage_ShouldReturnSad()
+        public void Given_HappyMoodMessage_Should_Return_HAPPY()
         {
-            string message = "I am sad Message";
-            MoodAnalyse moodAnalyse = new MoodAnalyse(message);
-            string result=moodAnalyse.AnalyseMood(message);
-            Assert.AreEqual("SAD", result);
+            ///Arrange
+            string expected = "HAPPY";
+            MoodAnalyse moodAnalyser = new MoodAnalyse("i am very happy");
+            ///Act
+            string mood = moodAnalyser.AnalyseMood();
+            ///Assert
+            Assert.AreEqual(expected, mood);
         }
         /// <summary>
-        /// Givens the happy message should return happy.
+        /// Given the sad mood message as parameter should return SAD.
         /// </summary>
         [TestMethod]
-        public void GivenHappyMessage_ShouldReturnHappy()
+        public void Given_SadMoodMessage_Should_Return_SAD()
         {
-            string message = "I am Happy Message";
-            MoodAnalyse moodAnalyse = new MoodAnalyse(message);
-            string result=moodAnalyse.AnalyseMood(message);
-            Assert.AreEqual("HAPPY", result);
+            ///Arrange
+            string expected = "SAD";
+            MoodAnalyse moodAnalyser = new MoodAnalyse("i am very sad");
+            ///Act
+            string mood = moodAnalyser.AnalyseMood();
+            ///Assert
+            Assert.AreEqual(expected, mood);
         }
-
         /// <summary>
-        /// Given the null mood should return happy.
+        /// Given the null as input should return mood should not be null
+        /// </summary>
+        /// <param name="message">The message.</param>
+        [TestMethod]
+        [DataRow(null)]
+        public void Given_Null_AsInput_Should_Return_MOOD_SHOULD_NOT_BE_NULL(string message)
+        {
+            try
+            {
+                //Arrange
+                MoodAnalyse moodAnalyser = new MoodAnalyse(message);
+                ///Act
+                var mood = moodAnalyser.AnalyseMood();
+            }
+            catch (MoodAnalyserException e)
+            {
+                ///Assert
+                Assert.AreNotEqual("Mood should not be null", e.Message);
+            }
+
+        }
+        /// <summary>
+        /// Given Empty message as input parameter should throw exception as
+        /// moos should not be empty
         /// </summary>
         [TestMethod]
-        public void GivenNullMood_ShouldReturnHappy()
+        public void GivenEmptyAsInput_ShouldReturnException()
         {
-            string message = null;
-            MoodAnalyse moodAnalyse = new MoodAnalyse(message);
-            string result = moodAnalyse.AnalyseMood(message);
-            Assert.AreEqual("HAPPY", result);
-        }
+            try
+            {
+                /// Arrange
+                string message = " ";
+                ///string expected = "mood should not be empty";
+                MoodAnalyse moodAnalyser = new MoodAnalyse(message);
+                ///Act
+                var mood = moodAnalyser.AnalyseMood();
+            }
+            catch (MoodAnalyserException e)
+            {
+                ///Assert
+                Assert.AreEqual("Mood should not be empty", e.Message);
+            }
 
+        }
     }
 }

@@ -6,33 +6,37 @@ namespace MoodAnalyser
 {
     public class MoodAnalyse
     {
+        /// Initialised message as private
         private string message;
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="MoodAnalyse"/> class.
+        ///Constructor Initializes a new instance of the <see cref="MoodAnalyser"/> class.
         /// </summary>
         /// <param name="message">The message.</param>
         public MoodAnalyse(string message)
         {
             this.message = message;
         }
-
-
         /// <summary>
-        /// Analyses the given mood shoud return the mood.
+        /// Analyses the mood of the person bases on the input message
         /// </summary>
         /// <param name="message">The message.</param>
         /// <returns></returns>
-        public string AnalyseMood(string message)
+        public string AnalyseMood()
         {
             try
             {
+                if (message.Equals(string.Empty))
+                {
+                    throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.ENTERED_EMPTY, "Mood should not be empty");
+
+                }
                 return message.Contains("sad") ? "SAD" : "HAPPY";
             }
             catch (NullReferenceException)
             {
-                return "HAPPY";
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.ENTERED_NULL, "Mood should not be null");
             }
         }
+
     }
 }
