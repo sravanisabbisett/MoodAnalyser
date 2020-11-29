@@ -43,7 +43,7 @@ namespace MoodAnalyserTest
         /// <param name="message">The message.</param>
         [TestMethod]
         [DataRow(null)]
-        public void Given_Null_AsInput_Should_Return_MOOD_SHOULD_NOT_BE_NULL(string message)
+        public void GivenNullAsInput_ShouldReturnCustomexception(string message)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace MoodAnalyserTest
             catch (MoodAnalyserException e)
             {
                 ///Assert
-                Assert.AreNotEqual("Mood should not be null", e.Message);
+                Assert.AreEqual("Mood should not be null", e.Message);
             }
 
         }
@@ -81,6 +81,53 @@ namespace MoodAnalyserTest
                 Assert.AreEqual("Mood should not be empty", e.Message);
             }
 
+        }
+
+        [TestMethod]
+        public void GivenMoodAnalyser_className_Should_ReturnMoodAnalyserObject()
+        {
+            //Arrange
+            object expexted = new MoodAnalyse();
+            //Act
+            object obj = MoodAnalyserFactorcs.CreateMoodAnalyse("MoodAnalyser.MoodAnalyse", "MoodAnalyse");
+            //Assert
+            expexted.Equals(obj);
+        }
+          
+        [TestMethod]
+        public void GivenMoodAnalyser_withImproperClassName_ShouldThrowException()
+        {
+            try
+            {
+                //Arrange
+                string className = "Demonamespace.MoodAnalyse";
+                string constructor = "MoodAnalyse";
+                //Act
+                object expected = new MoodAnalyse();
+                object obj = MoodAnalyserFactorcs.CreateMoodAnalyse(className, constructor);
+            }catch(MoodAnalyserException moodAnalyseException)
+            {
+                //Assert
+                Assert.AreEqual("No such class found", moodAnalyseException.Message);
+            }
+        }
+
+        public void GivenMoodAnalyser_withImproperConstructorName_ShouldThrowException()
+        {
+            try
+            {
+                //Arrange
+                string className = "MoodAnalyser.MoodAnalyse";
+                string constructor = "MoodAnalysee";
+                //Act
+                object expected = new MoodAnalyse();
+                object obj = MoodAnalyserFactorcs.CreateMoodAnalyse(className, constructor);
+            }
+            catch (MoodAnalyserException moodAnalyseException)
+            {
+                //Assert
+                Assert.AreEqual("No such constructor found", moodAnalyseException.Message);
+            }
         }
     }
 }

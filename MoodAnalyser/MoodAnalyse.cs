@@ -8,6 +8,11 @@ namespace MoodAnalyser
     {
         /// Initialised message as private
         private string message;
+
+        public MoodAnalyse()
+        {
+
+        }
         /// <summary>
         ///Constructor Initializes a new instance of the <see cref="MoodAnalyser"/> class.
         /// </summary>
@@ -25,12 +30,13 @@ namespace MoodAnalyser
         {
             try
             {
-                if (message.Equals(string.Empty))
+                if (this.message.Equals(string.Empty))
                 {
                     throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.ENTERED_EMPTY, "Mood should not be empty");
-
                 }
-                return message.Contains("sad") ? "SAD" : "HAPPY";
+
+                return this.message.Contains("sad") ? "SAD" : "HAPPY";
+
             }
             catch (NullReferenceException)
             {

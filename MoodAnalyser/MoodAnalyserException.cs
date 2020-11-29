@@ -11,7 +11,7 @@ namespace MoodAnalyser
         /// </summary>
         public enum ExceptionType
         {
-            ENTERED_EMPTY,ENTERED_NULL
+            ENTERED_EMPTY,ENTERED_NULL,NO_SUCH_CLASS,NO_SUCH_METHOD
         }
         
         ExceptionType exceptionType;
@@ -21,7 +21,7 @@ namespace MoodAnalyser
         /// </summary>
         /// <param name="exceptionType">Type of the exception.</param>
         /// <param name="message">The message.</param>
-        public MoodAnalyserException(ExceptionType exceptionType,string message)
+        public MoodAnalyserException(ExceptionType exceptionType,string message):base(message)
         {
             this.exceptionType = exceptionType;
         }
