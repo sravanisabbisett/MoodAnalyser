@@ -176,5 +176,27 @@ namespace MoodAnalyserTest
                 Assert.AreEqual("Constructor not found", exception.Message);
             }
         }
+        
+        [TestMethod]
+        public void GivenHappyMood_ShouldReturnHappy_UsingReflection()
+        {
+            string expected = "HAPPY";
+            string mood = MoodAnalyserFactorcs.InvokeAnalyseMethod("This is happy message", "AnalyseMood");
+            Assert.AreEqual(expected, mood);
+        }
+
+        [TestMethod]
+        public void GivenHappyMood_WithImproperMethodName_ShouldThrowMoodAnalyserException()
+        {
+            try
+            {
+                //string expected = "HAPPY";
+                string mood = MoodAnalyserFactorcs.InvokeAnalyseMethod("This is happy message", "AnalyseMoodd");
+            }
+            catch (MoodAnalyserException exception)
+            {
+                Assert.AreEqual("Method is not found", exception.Message);
+            }
+        }
     }
 }
