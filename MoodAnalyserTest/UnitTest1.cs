@@ -111,7 +111,7 @@ namespace MoodAnalyserTest
                 Assert.AreEqual("No such class found", moodAnalyseException.Message);
             }
         }
-
+        [TestMethod]
         public void GivenMoodAnalyser_withImproperConstructorName_ShouldThrowException()
         {
             try
@@ -127,6 +127,53 @@ namespace MoodAnalyserTest
             {
                 //Assert
                 Assert.AreEqual("No such constructor found", moodAnalyseException.Message);
+            }
+        }
+        /// <summary>
+        /// Givens the modd aalyser class name should return mood analyser object using parametrized constructor.
+        /// </summary>
+        [TestMethod]
+        public void GivenModdAalyserClassName_ShouldReturnMoodAnalyserObject_UsingParametrizedConstructor()
+        {
+            //Arrange
+            object excpected = new MoodAnalyse("HAPPY");
+            //Act
+            object obj = MoodAnalyserFactorcs.CreateMoodAnalyserObjectwithParaMeterizedConstructor("MoodAnalyser.MoodAnalyse", "MoodAnalyse", "HAPPY");
+            //Assert
+            excpected.Equals(obj);
+        }
+
+        [TestMethod]
+        public void GivenModdAalyserImproperClassName_ShouldReturnMoodAnalyserObject_ShouldReturnConstructor()
+        {
+            try
+            {
+                //Arrange
+                object excpected = new MoodAnalyse("sad");
+                //Act
+                object obj = MoodAnalyserFactorcs.CreateMoodAnalyserObjectwithParaMeterizedConstructor("Demonamespace.MoodAnalyse", "MoodAnalyse", "HAPPY");
+                //Assert
+            }
+            catch (MoodAnalyserException exception)
+            {
+                Assert.AreEqual("Class not found", exception.Message);
+            }
+        }
+
+        [TestMethod]
+        public void GivenModdAalyserImproperConstructorName_ShouldReturnMoodAnalyserObject_ShouldReturnConstructor()
+        {
+            try
+            {
+                //Arrange
+                object excpected = new MoodAnalyse("sad");
+                //Act
+                object obj = MoodAnalyserFactorcs.CreateMoodAnalyserObjectwithParaMeterizedConstructor("MoodAnalyser.MoodAnalyse", "MoodAnalyseee", "HAPPY");
+                //Assert
+            }
+            catch (MoodAnalyserException exception)
+            {
+                Assert.AreEqual("Constructor not found", exception.Message);
             }
         }
     }
