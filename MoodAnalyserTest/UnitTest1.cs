@@ -142,7 +142,9 @@ namespace MoodAnalyserTest
             //Assert
             excpected.Equals(obj);
         }
-
+        /// <summary>
+        /// TC 5.1 Givens the modd aalyser improper class name should return mood analyser object should return constructor.
+        /// </summary>
         [TestMethod]
         public void GivenModdAalyserImproperClassName_ShouldReturnMoodAnalyserObject_ShouldReturnConstructor()
         {
@@ -159,7 +161,9 @@ namespace MoodAnalyserTest
                 Assert.AreEqual("Class not found", exception.Message);
             }
         }
-
+        /// <summary>
+        /// TC 5.2 Givens the modd aalyser improper constructor name should return mood analyser object should return constructor.
+        /// </summary>
         [TestMethod]
         public void GivenModdAalyserImproperConstructorName_ShouldReturnMoodAnalyserObject_ShouldReturnConstructor()
         {
@@ -176,7 +180,10 @@ namespace MoodAnalyserTest
                 Assert.AreEqual("Constructor not found", exception.Message);
             }
         }
-        
+
+        /// <summary>
+        /// TC 6.1 Givens the happy mood should return happy using reflection.
+        /// </summary>
         [TestMethod]
         public void GivenHappyMood_ShouldReturnHappy_UsingReflection()
         {
@@ -185,6 +192,9 @@ namespace MoodAnalyserTest
             Assert.AreEqual(expected, mood);
         }
 
+        /// <summary>
+        /// TC 6.2 Givens the happy mood with improper method name should throw mood analyser exception.
+        /// </summary>
         [TestMethod]
         public void GivenHappyMood_WithImproperMethodName_ShouldThrowMoodAnalyserException()
         {
@@ -196,6 +206,56 @@ namespace MoodAnalyserTest
             catch (MoodAnalyserException exception)
             {
                 Assert.AreEqual("Method is not found", exception.Message);
+            }
+        }
+        /// <summary>
+        /// Givens the happy message with proper filedname should return happy.
+        /// </summary>
+        [TestMethod]
+        public void GivenHappyMessage_WithProperFiledname_ShouldReturnHappy()
+        {
+            string mood = "I am happy";
+            string fieldName = "message";
+            string MethodName = "AnalyseMood";
+            object actual = MoodAnalyserFactorcs.SetFieldValue(mood, fieldName,MethodName);
+            Assert.AreEqual("HAPPY", actual);
+        }
+        /// <summary>
+        /// Givens the happy message with im proper filedname should return expection.
+        /// </summary>
+/        [TestMethod]
+        public void GivenHappyMessage_WithImProperFiledname_ShouldReturnExpection()
+        {
+            try
+            {
+                string mood = "I am happy";
+                string fieldName = "messagee";
+                string MethodName = "AnalyseMood";
+                object actual = MoodAnalyserFactorcs.SetFieldValue(mood, fieldName, MethodName);
+            }
+            catch (MoodAnalyserException moodAnalyseExpection)
+            {
+                Assert.AreEqual("Field is not found", moodAnalyseExpection.Message);
+            }
+        }
+
+        /// <summary>
+        /// Givens the null message proper filedname should return expection.
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public void GivenNullMessage_ProperFiledname_ShouldReturnExpection()
+        {
+            try
+            {
+                string mood = null;
+                string fieldName = "message";
+                string MethodName = "AnalyseMood";
+                object actual = MoodAnalyserFactorcs.SetFieldValue(mood, fieldName, MethodName);
+            }
+            catch (MoodAnalyserException moodAnalyseExpection)
+            {
+                Assert.AreEqual("Message should not ne null", moodAnalyseExpection.Message);
             }
         }
     }
